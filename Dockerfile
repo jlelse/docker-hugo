@@ -1,6 +1,10 @@
 FROM golang:1.13-alpine AS build
 
-RUN apk update && apk add --no-cache gcc g++ musl-dev git
+RUN echo "" > /etc/apk/repositories && \
+  echo "http://ftp.halifax.rwth-aachen.de/alpine/v3.11/main/" >> /etc/apk/repositories && \
+  echo "http://ftp.halifax.rwth-aachen.de/alpine/v3.11/community/" >> /etc/apk/repositories && \
+  apk update && \
+  apk --no-cache add --no-cache gcc g++ musl-dev git
 
 WORKDIR /hugo
 
@@ -11,7 +15,11 @@ FROM golang:1.13-alpine
 
 COPY --from=build /hugo/hugo /usr/bin/hugo
 
-RUN apk update && apk add --no-cache ca-certificates libc6-compat libstdc++ git
+RUN echo "" > /etc/apk/repositories && \
+  echo "http://ftp.halifax.rwth-aachen.de/alpine/v3.11/main/" >> /etc/apk/repositories && \
+  echo "http://ftp.halifax.rwth-aachen.de/alpine/v3.11/community/" >> /etc/apk/repositories && \
+  apk update && \
+  apk --no-cache add --no-cache ca-certificates libc6-compat libstdc++ git
 
 VOLUME /site
 WORKDIR /site
