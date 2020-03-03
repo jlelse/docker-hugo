@@ -8,7 +8,7 @@ RUN echo "" > /etc/apk/repositories && \
 
 WORKDIR /hugo
 
-RUN git clone --branch v0.65.3 https://github.com/gohugoio/hugo.git .
+RUN git clone --branch v0.66.0 https://github.com/gohugoio/hugo.git .
 RUN go build -v --tags extended
 
 FROM golang:1.14-alpine
