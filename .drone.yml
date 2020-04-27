@@ -1,0 +1,24 @@
+kind: pipeline
+name: default
+
+platform:
+    os: linux
+    arch: amd64
+
+steps:
+  - name: publish
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: quay.io/jlelse/hugo
+      registry: quay.io
+      auto_tag: true
+    when:
+        branch:
+            - master
+        event:
+            exclude:
+            - pull_request
